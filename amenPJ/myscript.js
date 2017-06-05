@@ -58,7 +58,6 @@
         for(var i = 3, j = 1; i < sel.length-3; i++, j++){
             var op = sel[i];
             op[1].selected = "selected"; // [0]是-,[1]是10,[2]是9...
-            console.log("已为" + j + "个老师打分");
         }
         document.getElementById("frmSel").submit();
     }
@@ -69,7 +68,6 @@
         for(var i = 0, j = 1; i < sel.length; i++, j++){
             var op = sel[i];
             op[1].selected = "selected";
-            console.log("已为" + j + "个导师打分");
         }
         frmSel.submit();
     }
