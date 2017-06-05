@@ -3,6 +3,10 @@
 // 最后评教完成跳转到登录页方便开始下一个
 // 6.0版：可以单独对某一个老师进行手动评分
 //  需要在登录前打开控制台，使用localStorage缓存老师的名字，保存为json数组
+//  localStorage.setItem('teacherName', JSON.stringify(['某老师']))
+//  手动提交时，按钮没反应的解决方案：
+//  如果是授课老师：document.getElementById("frmSel").submit();
+//  如果是班导师：frmSel.submit();
 (function () {
 
     var URLpath = {
