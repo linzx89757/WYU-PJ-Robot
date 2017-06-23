@@ -1,0 +1,125 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* 左右滑动布局开始 */
+body {
+    position: relative;
+    width: 300px;
+    height: 340px;
+    overflow: hidden;
+}
+.page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-flex;
+    -webkit-transition: left 0.5s;
+    -moz-transition: left 0.5s;
+    -ms-transition: left 0.5s;
+    -o-transition: left 0.5s;
+    transition: left 0.5s;
+}
+.firstPage,
+.secondPage,
+.thirdPage {
+    position: relative;
+    width: 300px;
+    height: 340px;
+}
+/* 左右滑动布局结束 */
+
+/* 换页按钮开始 */
+.firstPage a.turnBtn,
+.secondPage a.turnBtn,
+.thirdPage a.turnBtn {
+    position: absolute;
+    left: 5px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin-top: -15px; /* 正确居中 */
+    line-height: 30px;
+    text-align: center;
+    font-size: 20px;
+    border-radius: 50%;
+    color: #555;
+    text-decoration-line: none;
+    border: 1px solid #555;
+}
+.firstPage a.turnBtn,
+.thirdPage a.turnBtn {
+    top: 50%; /* 垂直居中 */
+}
+.secondPage a.turnBtn {
+    top: 40%;
+}
+.secondPage a.turnBtn:last-child {
+    top: 60%;
+}
+.firstPage a.turnBtn:hover,
+.secondPage a.turnBtn:hover,
+.thirdPage a.turnBtn:hover {
+    background-color: #555;
+    color: #fff;
+    border: 0;
+}
+/* 换页按钮结束 */
+
+/* 第一页布局开始 */
+.firstPage {
+    background: url(logo.png) center 0 no-repeat;
+}
+.firstPage h1 {
+    padding-top: 250px; /* 图片的高度 */
+    line-height: 80px;  /* 铺满页面高度 */
+    text-align: center;
+}
+/* 第一页布局结束 */
+
+/* 第二页布局开始 */
+.secondPage h2 {
+    padding: 10px 0;
+    text-align: center;
+}
+.secondPage ul {
+    padding: 0 20px 10px 55px;
+    font-size: 14px;
+}
+/* 第二页布局结束 */
+
+/* 第三页布局开始 */
+.thirdPage {
+    background: url(erweima.png) center 0 no-repeat;
+}
+.thirdPage .teacherName,
+.thirdPage .button {
+    margin: 10px 0 0 50px;
+}
+.thirdPage .teacherName {
+    display: inline-flex;
+    margin-top: 220px;
+}
+.thirdPage .teacherName input {
+    padding-left: 5px;
+    margin-top: 10px;
+    height: 30px;
+    border-radius: 5px;
+}
+.thirdPage .teacherName div {
+    padding-left: 15px;
+}
+.thirdPage .teacherName button {
+    margin-bottom: 5px;
+    padding: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.thirdPage .button button {
+    padding: 5px;
+    margin-right: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+/* 第三页布局结束 */
