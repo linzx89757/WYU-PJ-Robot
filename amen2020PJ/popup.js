@@ -8,42 +8,44 @@
     var turnFirstPageBtn = document.getElementById('turnFirstPageBtn'),
         turnSecondPage_1Btn = document.getElementById('turnSecondPage_1Btn'),
         turnSecondPage_2Btn = document.getElementById('turnSecondPage_2Btn'),
-        turnThirdPageBtn = document.getElementById('turnThirdPageBtn'),
+        turnThirdPage_1Btn = document.getElementById('turnThirdPage_1Btn'),
+        turnThirdPage_2Btn = document.getElementById('turnThirdPage_2Btn'),
+        turnFourthPageBtn = document.getElementById('turnFourthPageBtn'),
         page = document.getElementById('page');
-    turnFirstPageBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+    turnFirstPageBtn.addEventListener('click', function() {
         page.style.left = '0';
         bg.pageIndex = 1;
     }, false);
-    turnSecondPage_1Btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+    turnSecondPage_1Btn.addEventListener('click', function() {
         page.style.left = '-300px';
         bg.pageIndex = 2;
     }, false);
-    turnSecondPage_2Btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+    turnSecondPage_2Btn.addEventListener('click', function() {
         page.style.left = '-300px';
         bg.pageIndex = 2;
     }, false);
-    turnThirdPageBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+    turnThirdPage_1Btn.addEventListener('click', function() {
         page.style.left = '-600px';
         bg.pageIndex = 3;
+    }, false);
+    turnThirdPage_2Btn.addEventListener('click', function() {
+        page.style.left = '-600px';
+        bg.pageIndex = 3;
+    }, false);
+    turnFourthPageBtn.addEventListener('click', function() {
+        page.style.left = '-900px';
+        bg.pageIndex = 4;
     }, false);
 
     // 单独评分的辅助
     var teacherNameInput = document.getElementById('teacherNameInput'),
         teacherNameBtn = document.getElementById('teacherNameBtn'),
-        cancelBtn = document.getElementById('cancel'),
+        teacherNameCancel = document.getElementById('teacherNameCancel'),
+        scoreInput = document.getElementById('scoreInput'),
+        scoreBtn = document.getElementById('scoreBtn'),
         shoukeTeacherBtn = document.getElementById('shoukeTeacherBtn'),
         bandaoTeacherBtn = document.getElementById('bandaoTeacherBtn');
-    teacherNameBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+    teacherNameBtn.addEventListener('click', function() {
         var teacherNameInputValue = teacherNameInput.value;
         if(teacherNameInputValue) {
             bg.teacherName = teacherNameInputValue;
@@ -51,22 +53,23 @@
             bg.getMsg(JSON.stringify(teacherNameInputValue.split(' ')));
         }
     }, false);
-    cancelBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+    teacherNameCancel.addEventListener('click', function() {
         teacherNameInput.value = '';
         bg.teacherName = '';
         bg.getMsg('cancel');
     }, false);
-    shoukeTeacherBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+    scoreBtn.addEventListener('click', function() {
+        var scoreInputValue = scoreInput.value;
+        if(scoreInputValue) {
+            bg.getMsg(11 - Number(scoreInputValue));
+            scoreInput.value = '';
+        }
+    }, false);
+    shoukeTeacherBtn.addEventListener('click', function() {
         // 将授课老师提交信号传送到background
         bg.getMsg('shouke');
     }, false);
-    bandaoTeacherBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+    bandaoTeacherBtn.addEventListener('click', function() {
         // 将班导师提交信号传送到background
         bg.getMsg('bandao');
     }, false);
@@ -81,6 +84,9 @@
             break;
         case 3:
             page.style.left = '-600px';
+            break;
+        case 4:
+            page.style.left = '-900px';
             break;
         // 不需要设置default
     }

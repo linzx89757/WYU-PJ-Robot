@@ -1,25 +1,6 @@
 ;(function() {
     'use stirct';
 
-    // 监听连接，辅助单独评分
-    chrome.extension.onConnect.addListener(function(port) {
-        // 监听通信通道，msg为消息对象
-        port.onMessage.addListener(function(msg) {
-            if(msg.value === 'shouke') {
-                document.getElementById('frmSel').submit();
-            }else if(msg.value === 'bandao') {
-                frmSel.submit();
-            }else if(msg.value === 'cancel'){
-                localStorage.removeItem('teacherName');
-            }else{
-                localStorage.setItem('teacherName', msg.value);
-            }
-        });
-    });
-    // 与background连接，建立通信通道，指定并命名tabId
-    var contentToBg = chrome.extension.connect({name: "contentToBg"});
-
-    // 开始全自动评分
     var URLpath = {
             default: '/xspj/default1.aspx', // 登陆页
             warning: '/xspj/zysx.htm', // 评教说明页
@@ -31,6 +12,32 @@
         pathname = location.pathname,
         teacherName = localStorage.getItem('teacherName');
 
+    // 与background连接，建立通信通道，指定并命名tabId
+    var contentToBg = chrome.extension.connect({name: "contentToBg"});
+
+    // 监听连接，辅助单独评分
+    chrome.extension.onConnect.addListener(function(port) {
+        // 监听通信通道，msg为消息对象
+        port.onMessage.addListener(function(msg) {
+            if(msg.value === 'shouke') {
+                document.getElementById('frmSel').submit();
+            }else if(msg.value === 'bandao') {
+                frmSel.submit();
+            }else if(msg.value === 'cancel') {
+                localStorage.removeItem('teacherName');
+            }else if(typeof msg.value === 'number') {
+                if(pathname === URLpath.teacher) {
+                    shoukeTeacher(msg.value);
+                }else if(pathname == URLpath.tutor) {
+                    bandaoTeacher(msg.value);
+                }
+            }else{
+                localStorage.setItem('teacherName', msg.value);
+            }
+        });
+    });
+
+    // 开始全自动评分
     if (pathname === URLpath.warning) {
         console.log('3.5s后自动点击·我已阅读·按钮');
         setTimeout(function() {
@@ -62,20 +69,20 @@
     }
 
     // 授课教师打分
-    function shoukeTeacher() {
+    function shoukeTeacher(score) {
         var sel = document.getElementById('frmSel');
         for(var i = 3, j = 1; i < sel.length-3; i++, j++){
             var op = sel[i];
-            op[1].selected = 'selected'; // [0]是-,[1]是10,[2]是9...
+            op[score? score: 1].selected = 'selected'; // [0]是-,[1]是10,[2]是9...
         }
         document.getElementById('frmSel').submit();
     }
     // 班导师（导师）打分
-    function bandaoTeacher() {
+    function bandaoTeacher(score) {
         var sel = document.getElementsByTagName('select');
         for(var i = 0, j = 1; i < sel.length; i++, j++){
             var op = sel[i];
-            op[1].selected = 'selected';
+            op[score? score: 1].selected = 'selected';
         }
         frmSel.submit();
     }
