@@ -2,18 +2,15 @@
     margin: 0;
     padding: 0;
 }
-ul {
-    font-size: 14px;
-}
-button {
-    cursor: pointer;
+h1,h2 {
+    text-align: center;
 }
 
 /* 左右滑动布局开始 */
 body {
     position: relative;
     width: 300px;
-    height: 340px;
+    height: 360px;
     overflow: hidden;
 }
 .page {
@@ -32,120 +29,88 @@ body {
 .thirdPage,
 .fourthPage {
     position: relative;
-    width: 300px;
-    height: 340px;
+    width: 300px; /* 保持和body一样大小 */
+    height: 330px;
+    padding-top: 30px;
 }
 /* 左右滑动布局结束 */
 
 /* 换页按钮开始 */
-.firstPage a.turnBtn,
-.secondPage a.turnBtn,
-.thirdPage a.turnBtn,
-.fourthPage a.turnBtn {
+a.turnBtn {
     position: absolute;
-    left: 5px;
+    top: 10px;
     display: block;
-    width: 30px;
-    height: 30px;
-    margin-top: -15px; /* 自身居中 */
-    line-height: 30px;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     border-radius: 50%;
     color: #555;
+    font-weight: bolder;
     text-decoration: none;
     border: 1px solid #555;
 }
-.firstPage a.turnBtn,
-.fourthPage a.turnBtn {
-    top: 50%; /* 垂直居中 */
+a.turnBtn.left {
+    left: 10px;
 }
-.secondPage a.turnBtn,
-.thirdPage a.turnBtn {
-    top: 40%;
+a.turnBtn.right {
+    right: 10px;
 }
-.secondPage a.turnBtn:last-child,
-.thirdPage a.turnBtn:last-child {
-    top: 60%;
-}
-.firstPage a.turnBtn:hover,
-.secondPage a.turnBtn:hover,
-.thirdPage a.turnBtn:hover,
-.fourthPage a.turnBtn:hover {
+a.turnBtn:hover {
     background-color: #555;
     color: #fff;
     border: 0;
 }
 /* 换页按钮结束 */
 
-/* 第一页布局开始 */
+/* 第一页、第四页布局开始 */
 .firstPage {
-    background: url(logo.png) center 0 no-repeat;
+    background: url(logo.png) center 30px no-repeat;
 }
-.firstPage h1 {
-    padding-top: 250px; /* 图片的高度 */
-    line-height: 90px;  /* 铺满页面高度 */
-    text-align: center;
+.firstPage h1:first-child {
+    margin-top: 255px; /* 背景图片大小250px */
 }
-/* 第一页布局结束 */
+.fourthPage {
+    background: url(erweima.png) center 30px no-repeat;
+}
+.fourthPage h1 {
+    margin-top: 260px; /* 背景图片大小250px */
+}
+/* 第一页、第四页布局结束 */
 
-/* 第二页布局开始 */
-.secondPage h2 {
-    padding: 20px 0 10px 0;
-    text-align: center;
+/* 第二页、第三页布局开始 */
+.secondPage,
+.thirdPage {
+    width: 230px;
+    padding-left: 40px;
+    padding-right: 30px;
 }
-.secondPage ul {
+ul {
     font-size: 14px;
-    padding: 0 30px 0 55px;
-}
-.secondPage .teacherName {
-    margin: 5px 0 0 55px;
-}
-.secondPage input {
-    display: block;
-    padding-left: 5px;
-    margin-bottom: 5px;
-}
-.secondPage button {
-    padding: 0 2px;
-    border-radius: 2px;
-    margin-right: 10px;
-}
-/* 第二页布局结束 */
-
-/* 第三页布局开始 */
-.thirdPage ul,
-.thirdPage .score,
-.thirdPage .button {
-    padding: 20px 30px 0 55px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 .thirdPage ul {
-    padding-top: 30px;
+    margin-top: 30px;
 }
-.thirdPage .score input {
+input {
     padding-left: 5px;
-    width: 150px;
-    height: 20px;
+    height: 30px;
     border-radius: 5px;
 }
-.thirdPage .score button {
-    padding: 1px;
-    border-radius: 2px;
+.thirdPage input {
+    width: 150px;
+    margin-right: 10px;
+    margin-top: 20px;
 }
-.thirdPage .button button {
+.button {
+    margin-top: 10px;
+}
+button {
     padding: 5px;
     margin-right: 10px;
     border-radius: 5px;
+    cursor: pointer;
 }
-/* 第三页布局结束 */
-
-/* 第四页布局开始 */
-.fourthPage {
-    background: url(erweima.png) center 0 no-repeat;
-}
-.fourthPage h2 {
-    padding-top: 250px; /* 图片的高度 */
-    line-height: 70px;  /* 铺满页面高度 */
-    text-align: center;
-}
-/* 第四页布局结束 */
+/* 第二页、第三页布局结束 */

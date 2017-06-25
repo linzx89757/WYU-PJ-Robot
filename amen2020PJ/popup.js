@@ -5,73 +5,61 @@
     var bg = chrome.extension.getBackgroundPage();
     
     // 左右滑动效果
-    var turnFirstPageBtn = document.getElementById('turnFirstPageBtn'),
-        turnSecondPage_1Btn = document.getElementById('turnSecondPage_1Btn'),
-        turnSecondPage_2Btn = document.getElementById('turnSecondPage_2Btn'),
-        turnThirdPage_1Btn = document.getElementById('turnThirdPage_1Btn'),
-        turnThirdPage_2Btn = document.getElementById('turnThirdPage_2Btn'),
-        turnFourthPageBtn = document.getElementById('turnFourthPageBtn'),
-        page = document.getElementById('page');
-    turnFirstPageBtn.addEventListener('click', function() {
+    var page = document.getElementById('page');
+    document.getElementById('turnFirstPageBtn').addEventListener('click', function() {
         page.style.left = '0';
-        bg.pageIndex = 1;
+        bg.pageIndex = 1; // 记录正在浏览的页码
     }, false);
-    turnSecondPage_1Btn.addEventListener('click', function() {
+    document.getElementById('turnSecondPage_1Btn').addEventListener('click', function() {
         page.style.left = '-300px';
         bg.pageIndex = 2;
     }, false);
-    turnSecondPage_2Btn.addEventListener('click', function() {
+    document.getElementById('turnSecondPage_2Btn').addEventListener('click', function() {
         page.style.left = '-300px';
         bg.pageIndex = 2;
     }, false);
-    turnThirdPage_1Btn.addEventListener('click', function() {
+    document.getElementById('turnThirdPage_1Btn').addEventListener('click', function() {
         page.style.left = '-600px';
         bg.pageIndex = 3;
     }, false);
-    turnThirdPage_2Btn.addEventListener('click', function() {
+    document.getElementById('turnThirdPage_2Btn').addEventListener('click', function() {
         page.style.left = '-600px';
         bg.pageIndex = 3;
     }, false);
-    turnFourthPageBtn.addEventListener('click', function() {
+    document.getElementById('turnFourthPageBtn').addEventListener('click', function() {
         page.style.left = '-900px';
         bg.pageIndex = 4;
     }, false);
 
-    // 单独评分的辅助
+    // 单独评分
     var teacherNameInput = document.getElementById('teacherNameInput'),
-        teacherNameBtn = document.getElementById('teacherNameBtn'),
-        teacherNameCancel = document.getElementById('teacherNameCancel'),
-        scoreInput = document.getElementById('scoreInput'),
-        scoreBtn = document.getElementById('scoreBtn'),
-        shoukeTeacherBtn = document.getElementById('shoukeTeacherBtn'),
-        bandaoTeacherBtn = document.getElementById('bandaoTeacherBtn');
-    teacherNameBtn.addEventListener('click', function() {
-        var teacherNameInputValue = teacherNameInput.value;
-        if(teacherNameInputValue) {
-            bg.teacherName = teacherNameInputValue;
-            // 将用户输入的老师名字数组转化为json传送到background
-            bg.getMsg(JSON.stringify(teacherNameInputValue.split(' ')));
+        scoreInput = document.getElementById('scoreInput');
+    document.getElementById('teacherNameBtn').addEventListener('click', function() {
+        var teacherName = teacherNameInput.value;
+        if(teacherName) {
+            bg.teacherName = teacherName; // 记录需要单独评分的老师名字
+            // 将用户输入的老师名字数组转化为json并传送到background
+            bg.getMsg(JSON.stringify(teacherName.split(' ')));
         }
     }, false);
-    teacherNameCancel.addEventListener('click', function() {
+    document.getElementById('teacherNameCancel').addEventListener('click', function() {
         teacherNameInput.value = '';
-        bg.teacherName = '';
-        bg.getMsg('cancel');
+        bg.teacherName = ''; // 清除已记录的需要单独评分的老师名字
+        bg.getMsg('cancel'); // 将取消单独评分的信号传送到background
     }, false);
-    scoreBtn.addEventListener('click', function() {
-        var scoreInputValue = scoreInput.value;
-        if(scoreInputValue) {
-            bg.getMsg(11 - Number(scoreInputValue));
-            scoreInput.value = '';
+    document.getElementById('scoreBtn').addEventListener('click', function() {
+        var score = scoreInput.value;
+        if(score) {
+            bg.score = score; // 记录一键评分的分数
+            // 将一键评分的分数转化为数字并传送到background
+            bg.getMsg(Number(score));
         }
     }, false);
-    shoukeTeacherBtn.addEventListener('click', function() {
-        // 将授课老师提交信号传送到background
-        bg.getMsg('shouke');
+    document.getElementById('shoukeTeacherBtn').addEventListener('click', function() {
+        bg.getMsg('shouke'); // 将授课老师提交信号传送到background
     }, false);
-    bandaoTeacherBtn.addEventListener('click', function() {
-        // 将班导师提交信号传送到background
-        bg.getMsg('bandao');
+    document.getElementById('bandaoTeacherBtn').addEventListener('click', function() {
+        bg.getMsg('bandao'); // 将班导师提交信号传送到background
     }, false);
 
     // 显示上次浏览的页面数据
@@ -91,4 +79,5 @@
         // 不需要设置default
     }
     teacherNameInput.value = bg.teacherName;
+    scoreInput.value = bg.score;
 })();

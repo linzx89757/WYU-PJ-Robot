@@ -1,6 +1,8 @@
-// 全局保存数据
-var pageIndex = 0,
-    teacherName = '';
+window.pageIndex = 0; // 记录正在浏览的页码
+window.teacherName = ''; // 记录需要单独评分的老师名字
+window.score = '';// 记录一键评分的分数
+
+// chrome只能暴露在最外面
 // 获取当前tab
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
     // 与content连接，建立通信通道，指定并命名tabId
@@ -10,12 +12,14 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
         bgToContent.postMessage({value: msg});
     };
 });
-// 监听连接，辅助单独评分
+
+// 监听连接，单独评分
 chrome.extension.onConnect.addListener(function(port) {
     // 监听通信通道，msg为消息对象
     port.onMessage.addListener(function(msg) {
         if(msg.value === 'ok') {
-            teacherName = '';
+            window.teacherName = '';
+            window.score = '';
         }
     });
 });

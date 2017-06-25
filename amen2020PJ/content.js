@@ -4,106 +4,129 @@
     var URLpath = {
             default: '/xspj/default1.aspx', // 登陆页
             warning: '/xspj/zysx.htm', // 评教说明页
-            teacherCourse: '/xspj/loadnevl.aspx', // 任课教师打分说明页
-            teacher: '/xspj/evaluate.aspx', // 任课教师打分页
-            tutorCourse: '/ds/loadnevl.asp', // 班导师（导师）打分说明页
-            tutor:  '/ds/evaluate.asp' // 班导师（导师）打分页
+            shoukePage: '/xspj/loadnevl.aspx', // 授课老师打分说明页
+            shouke: '/xspj/evaluate.aspx', // 授课老师打分页
+            bandaoPage: '/ds/loadnevl.asp', // 班导师打分说明页
+            bandao:  '/ds/evaluate.asp' // 班导师打分页
         },
         pathname = location.pathname,
-        teacherName = localStorage.getItem('teacherName');
+        teacherName = localStorage.getItem('teacherName'); // 缓存单独评分的老师名字
 
     // 与background连接，建立通信通道，指定并命名tabId
     var contentToBg = chrome.extension.connect({name: "contentToBg"});
 
-    // 监听连接，辅助单独评分
+    // 监听连接，单独评分
     chrome.extension.onConnect.addListener(function(port) {
         // 监听通信通道，msg为消息对象
         port.onMessage.addListener(function(msg) {
             if(msg.value === 'shouke') {
+                // 授课老师提交
                 document.getElementById('frmSel').submit();
             }else if(msg.value === 'bandao') {
+                // 班导师提交
                 frmSel.submit();
             }else if(msg.value === 'cancel') {
+                // 取消单独评分，清除缓存
                 localStorage.removeItem('teacherName');
             }else if(typeof msg.value === 'number') {
-                if(pathname === URLpath.teacher) {
-                    shoukeTeacher(msg.value);
-                }else if(pathname == URLpath.tutor) {
-                    bandaoTeacher(msg.value);
+                // 一键评分
+                if(pathname == URLpath.shouke) {
+                    shoukeTeacherMark(msg.value);
+                }else if(pathname == URLpath.bandao) {
+                    bandaoTeacherMark(msg.value);
                 }
             }else{
+                // 需要单独评分，缓存老师名字
                 localStorage.setItem('teacherName', msg.value);
             }
         });
     });
 
+    /**
+     * 授课老师打分程序
+     * @param {number} score 一键评分的分数0~10
+     */
+    function shoukeTeacherMark(score) {
+        var sel = document.getElementById('frmSel');
+        for(var i = 3, j = 1; i < sel.length-3; i++, j++){
+            var op = sel[i];
+            // [0]是-，[1]是10，[2]是9...
+            op[score? 11 - score: 1].selected = 'selected';
+        }
+        if(!score) { // 如果是一键评分则不自动提交
+            document.getElementById('frmSel').submit();
+        }
+    }
+
+    /**
+     * 班导师打分程序
+     * @param {number} score 一键评分的分数0~10
+     */
+    function bandaoTeacherMark(score) {
+        var sel = document.getElementsByTagName('select');
+        for(var i = 0, j = 1; i < sel.length; i++, j++){
+            var op = sel[i];
+            // [0]是-，[1]是10，[2]是9...
+            op[score? 11 - score: 1].selected = 'selected';
+        }
+        if(!score) { // 如果是一键评分则不自动提交
+            frmSel.submit();
+        }
+    }
+
+    /**
+     * 匹配出需要单独评分的老师
+     * @param {string} teacherID 检索到的老师名字
+     * @param {function} teacherMark 打分程序
+     */
+    function teacherMatch(teacherID, teacherMark) {
+        if(teacherName === null) {
+            // 不需要单独评分，开始执行打分程序
+            teacherMark();
+        }else{
+            // 需要单独评分，开始匹配并执行打分程序
+            var teacherNameArr = JSON.parse(teacherName),
+                arrLength = teacherNameArr.length;
+            for(var i = 0; i < arrLength; i++) {
+                if(teacherID === teacherNameArr[i]) {
+                    console.log(teacherID + '，匹配正确，请开始评分，评完后请手动提交！');
+                    break;
+                }else if(i === arrLength - 1){
+                    console.log('匹配失败，开始打分');
+                    teacherMark();
+                }
+            }
+        }
+    }
+
     // 开始全自动评分
-    if (pathname === URLpath.warning) {
+    if(pathname === URLpath.warning) {
         console.log('3.5s后自动点击·我已阅读·按钮');
         setTimeout(function() {
             document.getElementById('btnSubmit').click();
         }, 3500);
-    }else if (pathname === URLpath.teacherCourse) {
+    }else if(pathname === URLpath.shoukePage) {
         console.log('自动点击·下一页·按钮');
         document.getElementsByTagName('input')[2].click();
-    }else if (pathname === URLpath.teacher) {
+    }else if(pathname === URLpath.shouke) {
         // 检索老师名字
         var teacherID = document.getElementById('lblRKJS').textContent;
-        pipeiTeacher(teacherID, shoukeTeacher);
-    }else if (pathname == URLpath.tutorCourse) {
+        teacherMatch(teacherID, shoukeTeacherMark);
+    }else if (pathname == URLpath.bandaoPage) {
         console.log('自动点击·下一页·按钮');
-        location.href = 'evaluate.asp';
-    }else if (pathname == URLpath.tutor) {
+        location.href = URLpath.bandao;
+    }else if (pathname == URLpath.bandao) {
         // 检索老师名字
         var table = document.getElementsByTagName('table')[1],
             tr = table.getElementsByTagName('tr')[0],
             td = tr.getElementsByTagName('td')[1],
             b = td.getElementsByTagName('b')[0],
             teacherID = b.innerText;
-        pipeiTeacher(teacherID, bandaoTeacher);
+        teacherMatch(teacherID, bandaoTeacherMark);
     }else if(pathname != URLpath.default){
         console.log('评教完成，跳转回登录页，同时清了缓存');
         contentToBg.postMessage({value: "ok"}); // 利用通道传送评教成功的消息
         localStorage.removeItem('teacherName');
         location.href = URLpath.default;
-    }
-
-    // 授课教师打分
-    function shoukeTeacher(score) {
-        var sel = document.getElementById('frmSel');
-        for(var i = 3, j = 1; i < sel.length-3; i++, j++){
-            var op = sel[i];
-            op[score? score: 1].selected = 'selected'; // [0]是-,[1]是10,[2]是9...
-        }
-        document.getElementById('frmSel').submit();
-    }
-    // 班导师（导师）打分
-    function bandaoTeacher(score) {
-        var sel = document.getElementsByTagName('select');
-        for(var i = 0, j = 1; i < sel.length; i++, j++){
-            var op = sel[i];
-            op[score? score: 1].selected = 'selected';
-        }
-        frmSel.submit();
-    }
-    // 匹配出需要单独评分的老师
-    function pipeiTeacher(teacherID, teacherFn) {
-        if(teacherName === null) {
-            // 不需要单独评分，开始评分
-            teacherFn();
-        }else{
-            // 需要单独评分，开始匹配
-            var teacherNameArr = JSON.parse(teacherName),
-                arrLength = teacherNameArr.length;
-            for(var i = 0; i < arrLength; i++) {
-                if(teacherID === teacherNameArr[i]) {
-                    console.log(teacherID + '，匹配正确，请开始评教，评完后请手动提交！');
-                    break;
-                }else if(i === arrLength - 1){
-                    console.log('匹配失败，班导师开始打分');
-                    teacherFn();
-                }
-            }
-        }
     }
 })();

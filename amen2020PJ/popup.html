@@ -3,58 +3,62 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-	<title>wyu-PJ-Robot</title>
+	<title>amen2020 PJ-Robot</title>
 	<!-- 引入样式文件 -->
 	<link rel="stylesheet" href="popup.css">
 </head>
 <body>
 	<div id="page" class="page">
 		<div class="firstPage">
+			<h1>欢迎使用</h1>
 			<h1>amen2020评教神器</h1>
-			<a id="turnSecondPage_1Btn" class="turnBtn" href="#" title="下一页"><code><</code></a>
+			<a id="turnSecondPage_1Btn" class="turnBtn right" href="#" title="下一页"><code>></code></a>
 		</div>
 		<div class="secondPage">
 			<h2>使用说明</h2>
 			<ul>
 				<li>
-					全自动评分，默认全部老师100分，你只需要打开
+					你只需要打开
 					<a href="http://202.192.240.54/xspj/default1.aspx" target="_blank" title="新标签页打开评教网页">评教网页</a>
-					输入学号密码登陆
+					输入学号密码登陆即可全自动评分，默认全部老师100分
 				</li>
 				<li>
-					如果你想对某个或某几个老师单独评分，首先确保你已经打开评教网页，
-					登陆前请先在下面的输入框正确输入老师的名字，然后点击确定按钮再去登陆即可，我会在评到这些老师的时候停下来；
-					如果你点击确定按钮后反悔了，必须在你登陆前点击取消按钮，我会帮你执行默认评分程序
+					如果你想对某个老师单独评分，首先打开评教网页，
+					登陆前先在下面的输入框输入老师的名字，然后点击确定按钮再去登陆
+					（我会帮你设定单独评分程序，在评到这些老师的时候停下来）；
+					如果你点击确定按钮后反悔了，必须在你去登陆前点击取消按钮
+					（我会帮你撤销单独评分程序）
 				</li>
 			</ul>
-			<div class="teacherName">
-				<input id="teacherNameInput" type="text" placeholder="多个老师请用空格隔开">
+			<input id="teacherNameInput" type="text" placeholder="多个老师请用空格隔开">
+			<div class="button">
 				<button id="teacherNameBtn">确定</button>
 				<button id="teacherNameCancel">取消</button>
 			</div>
-			<a id="turnThirdPage_1Btn" class="turnBtn" href="#" title="下一页"><code><</code></a>
-			<a id="turnFirstPageBtn" class="turnBtn" href="#" title="上一页"><code>></code></a>
+			<a id="turnFirstPageBtn" class="turnBtn left" href="#" title="上一页"><code><</code></a>
+			<a id="turnThirdPage_1Btn" class="turnBtn right" href="#" title="下一页"><code>></code></a>
 		</div>
 		<div class="thirdPage">
 			<ul>
-				<li>即使你想单独评分，我也提供给你比较快速的评分操作，在下面的输入框输入0~10其中的一个整数，点击确定按钮一键评分</li>
-				<li>如果对老师单独评分后点击提交按钮没反应，下面提供给你两个按钮，分别针对授课老师和班导师的提交操作</li>
+				<li>
+					即使你想单独评分，我也提供给你比较快速的评分操作，
+					在下面的输入框输入或者选择一个分数，点击确定按钮即可一键评分
+				</li>
+				<li>如果对老师单独评分，可能出现点击提交按钮没反应的情况，下面提供给你两个按钮可以解决提交操作</li>
 				<li>如果还不行，可以联系我，我的微信二维码在下一页</li>
 			</ul>
-			<div class="score">
-				<input id="scoreInput" type="number" min="0" max="10" placeholder="0~10其中一个整数">
-				<button id="scoreBtn">确定</button>
-			</div>
+			<input id="scoreInput" type="number" min="0" max="10" placeholder="0~10其中一个整数">
+			<button id="scoreBtn">确定</button>
 			<div class="button">
 				<button id="shoukeTeacherBtn">授课老师提交</button>
 				<button id="bandaoTeacherBtn">班导师提交</button>
 			</div>
-			<a id="turnFourthPageBtn" class="turnBtn" href="#" title="下一页"><code><</code></a>
-			<a id="turnSecondPage_2Btn" class="turnBtn" href="#" title="上一页"><code>></code></a>
+			<a id="turnSecondPage_2Btn" class="turnBtn left" href="#" title="上一页"><code><</code></a>
+			<a id="turnFourthPageBtn" class="turnBtn right" href="#" title="下一页"><code>></code></a>
 		</div>
 		<div class="fourthPage">
-			<h2>欢迎使用amen2020评教神器</h2>
-			<a id="turnThirdPage_2Btn" class="turnBtn" href="#" title="上一页"><code><</code></a>
+			<h1>(ง •̀_•́)ง</h1>
+			<a id="turnThirdPage_2Btn" class="turnBtn left" href="#" title="上一页"><code><</code></a>
 		</div>
 	</div>
 
