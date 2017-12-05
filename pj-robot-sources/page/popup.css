@@ -66,13 +66,13 @@ a.turnBtn:hover {
 
 /* 第一页、第四页布局开始 */
 .firstPage {
-    background: url(logo.png) center 30px no-repeat;
+    background: url(images/logo.png) center 30px no-repeat;
 }
 .firstPage h1:first-child {
     margin-top: 255px; /* 背景图片大小250px */
 }
 .fourthPage {
-    background: url(erweima.png) center 30px no-repeat;
+    background: url(images/erweima.png) center 30px no-repeat;
 }
 .fourthPage h1 {
     margin-top: 260px; /* 背景图片大小250px */

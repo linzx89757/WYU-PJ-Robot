@@ -1,25 +1,31 @@
 {
     "manifest_version": 2,
     "name": "WYU-PJ-Robot",
+    "author": "linzx89757",
     "version": "3.0",
-    "description": "The PJ-Robot can help you to complete the assessment of teaching automatically and the average score is 100. The only one thing you should do is enter your id and password.By the way, you should use chrome.",
+    "description": "The WYU-PJ-Robot can help you to complete the assessment of teaching automatically.",
     "icons": {
-        "16": "logo.png",
-        "48": "logo.png",
-        "128": "logo.png"
+        "16": "icon/logo16.png",
+        "48": "icon/logo48.png",
+        "128": "icon/logo128.png"
     },
+    
     "browser_action": {
-        "default_icon": "logo.png",
+        "default_icon": {
+            "19": "icon/logo19.png",
+            "38": "icon/logo38.png"
+        },
         "default_title": "WYU-PJ-Robot",
         "default_popup": "popup.html"
     },
+    "background": {
+        "scripts": ["page/background.js"]
+    },
+    
     "permissions": [
         "http://202.192.240.54/*",
         "tabs"
     ],
-    "background": {
-        "scripts": ["background.js"]
-    },
     "content_scripts": [{
         "matches": [
             "http://202.192.240.54/xspj/default1.aspx",
