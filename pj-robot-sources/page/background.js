@@ -2,7 +2,7 @@ window.pageIndex = 0; // 记录正在浏览的页码
 window.teacherName = ''; // 记录需要单独评分的老师名字
 window.score = '';// 记录一键评分的分数
 
-// 设置插件徽章
+// 设置扩展程序徽章
 chrome.browserAction.setBadgeText({text: 'PJ'});
 
 // chrome只能暴露在最外面

@@ -24,7 +24,10 @@
     
     "permissions": [
         "http://202.192.240.54/*",
-        "tabs"
+        "tabs",
+        "unlimitedStorage",
+        "storage",
+        "system.storage"
     ],
     "content_scripts": [{
         "matches": [
@@ -37,6 +40,7 @@
             "http://202.192.240.54/ds/exit.asp",
             "http://202.192.240.54/xspj/"
         ],
-        "js": ["content.js"]
+        "js": ["content.js"],
+        "all_frames": true
     }]
 }
