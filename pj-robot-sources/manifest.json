@@ -16,7 +16,7 @@
             "38": "icon/logo38.png"
         },
         "default_title": "WYU-PJ-Robot",
-        "default_popup": "popup.html"
+        "default_popup": "page/popup.html"
     },
     "background": {
         "scripts": ["page/background.js"]
