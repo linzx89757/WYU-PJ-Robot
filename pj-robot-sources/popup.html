@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-	<title>amen2020 PJ-Robot</title>
+	<title>WYU-PJ-Robot</title>
 	<!-- 引入样式文件 -->
 	<link rel="stylesheet" href="popup.css">
 </head>
@@ -11,23 +11,24 @@
 	<div id="page" class="page">
 		<div class="firstPage">
 			<h1>欢迎使用</h1>
-			<h1>amen2020评教神器</h1>
+			<h1>WYU-PJ-Robot</h1>
 			<a id="turnSecondPage_1Btn" class="turnBtn right" href="#" title="下一页"><code>></code></a>
 		</div>
 		<div class="secondPage">
 			<h2>使用说明</h2>
 			<ul>
 				<li>
-					你只需要打开
-					<a href="http://202.192.240.54/xspj/default1.aspx" target="_blank" title="新标签页打开评教网页">评教网页</a>
-					输入学号密码登陆即可全自动评分，默认全部老师100分
+					<a href="http://202.192.240.54/xspj/default1.aspx" target="_blank" title="新标签页打开评教网页">
+						评教网页地址
+					</a>
 				</li>
+				<li>用法1：直接登陆，全自动评分，默认全部老师100分</li>
 				<li>
-					如果你想对某个老师单独评分，首先打开评教网页，
-					登陆前先在下面的输入框输入老师的名字，然后点击确定按钮再去登陆
-					（我会帮你设定单独评分程序，在评到这些老师的时候停下来）；
-					如果你点击确定按钮后反悔了，必须在你去登陆前点击取消按钮
-					（我会帮你撤销单独评分程序）
+					用法2：如果你想对某些老师单独评分，请在登陆前完成下面的操作；<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					在下面的输入框输入老师的名字，点击确定再登陆即可，我会在评到这些老师的时候将评分权交给你；<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					如果你点击确定后想重新选择，必须在登陆前点击取消即可撤销
 				</li>
 			</ul>
 			<input id="teacherNameInput" type="text" placeholder="多个老师请用空格隔开">
@@ -41,10 +42,11 @@
 		<div class="thirdPage">
 			<ul>
 				<li>
-					即使你想单独评分，我也提供给你比较快速的评分操作，
-					在下面的输入框输入或者选择一个分数，点击确定按钮即可一键评分
+					用法3：当你选择单独评分，你可以试试一键评分；<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					在下面的输入框输入或者选择一个分数，点击确定即可
 				</li>
-				<li>如果对老师单独评分，可能出现点击提交按钮没反应的情况，下面提供给你两个按钮可以解决提交操作</li>
+				<li>用法4：如果用法3没有自动提交，从下面选择对应的按钮提交</li>
 				<li>如果还不行，可以联系我，我的微信二维码在下一页</li>
 			</ul>
 			<input id="scoreInput" type="number" min="0" max="10" placeholder="0~10其中一个整数">

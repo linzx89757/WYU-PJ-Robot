@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
-    "name": "amen2020 PJ-Robot",
-    "version": "7.0",
+    "name": "WYU-PJ-Robot",
+    "version": "3.0",
     "description": "The PJ-Robot can help you to complete the assessment of teaching automatically and the average score is 100. The only one thing you should do is enter your id and password.By the way, you should use chrome.",
     "icons": {
         "16": "logo.png",
@@ -10,7 +10,7 @@
     },
     "browser_action": {
         "default_icon": "logo.png",
-        "default_title": "amen2020 PJ-Robot",
+        "default_title": "WYU-PJ-Robot",
         "default_popup": "popup.html"
     },
     "permissions": [

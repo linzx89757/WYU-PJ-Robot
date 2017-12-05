@@ -91,6 +91,9 @@ ul {
     margin-top: 5px;
     margin-bottom: 10px;
 }
+ul li {
+    margin-top: 6px;
+}
 .thirdPage ul {
     margin-top: 30px;
 }
