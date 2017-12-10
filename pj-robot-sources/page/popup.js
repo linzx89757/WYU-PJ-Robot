@@ -1,10 +1,11 @@
 ;(function() {
-    'use stirct';
+    'use strict';
 
-    var bg = chrome.extension.getBackgroundPage(), // 与background建立通道
+    // 获取background，可以直接访问background的全局变量
+    var bg = chrome.extension.getBackgroundPage(),
         page = document.getElementById('page'),
         teacherNameInput = document.getElementById('teacherNameInput'),
-        scoreInput = document.getElementById('scoreInput');
+        scoreInput = document.getElementById('scoreInput'),
         pageTurnData = [
             {
                 domId: 'turnFirstPageBtn',
@@ -50,38 +51,38 @@
     // 页面左右滑动效果
     pageTurnData.forEach(function(item) {
         addClickEvent(item.domId, function() {
-            page.style.left = item.pxs; // 页面滑动
-            bg.pageIndex = item.pageIndex; // 记录正在浏览的页码
+            page.style.left = item.pxs; // 页面开始滑动
+            bg.pageIndex = item.pageIndex; // 记录当前页码
         });
-    }, this);
+    });
 
     // 单独评分
     addClickEvent('teacherNameBtn', function() {
         var teacherName = teacherNameInput.value;
         if(teacherName) {
             bg.teacherName = teacherName; // 记录需要单独评分的老师名字
-            // 将用户输入的老师名字数组转化为json字符串并传送到background
+            // 将用户输入的老师名字数组转化为json字符串并借助background传送到content
             bg.getMsg(JSON.stringify(teacherName.split(' ')));
         }
     });
     addClickEvent('teacherNameCancel', function() {
         teacherNameInput.value = '';
         bg.teacherName = ''; // 清除已记录的需要单独评分的老师名字
-        bg.getMsg('cancel'); // 将取消单独评分的信号传送到background
+        bg.getMsg('cancel'); // 将取消单独评分的信号借助background传送到content
     });
     addClickEvent('scoreBtn', function() {
         var score = scoreInput.value;
         if(score) {
             bg.score = score; // 记录一键评分的分数
-            // 将一键评分的分数转化为数字并传送到background
+            // 将一键评分的分数转化为数字并借助background传送到content
             bg.getMsg(Number(score));
         }
     });
     addClickEvent('shoukeTeacherBtn', function() {
-        bg.getMsg('shouke'); // 将授课老师提交信号传送到background
+        bg.getMsg('shouke'); // 将授课老师提交信号借助background传送到content
     });
     addClickEvent('bandaoTeacherBtn', function() {
-        bg.getMsg('bandao'); // 将班导师提交信号传送到background
+        bg.getMsg('bandao'); // 将班导师提交信号借助background传送到content
     });
 
     // 显示上次浏览的页面数据

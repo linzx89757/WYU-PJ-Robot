@@ -1,14 +1,20 @@
 {
     "manifest_version": 2,
-    "name": "WYU-PJ-Robot",
     "author": "linzx89757",
+    "name": "WYU-PJ-Robot",
     "version": "3.0",
     "description": "The WYU-PJ-Robot can help you to complete the assessment of teaching automatically.",
     "icons": {
         "16": "icon/logo16.png",
+        "32": "icon/logo32.png",
         "48": "icon/logo48.png",
         "128": "icon/logo128.png"
     },
+
+    "permissions": [
+        "http://202.192.240.54/",
+        "tabs"
+    ],
     
     "browser_action": {
         "default_icon": {
@@ -18,29 +24,25 @@
         "default_title": "WYU-PJ-Robot",
         "default_popup": "page/popup.html"
     },
+    
     "background": {
         "scripts": ["page/background.js"]
     },
     
-    "permissions": [
-        "http://202.192.240.54/*",
-        "tabs",
-        "unlimitedStorage",
-        "storage",
-        "system.storage"
-    ],
-    "content_scripts": [{
-        "matches": [
-            "http://202.192.240.54/xspj/default1.aspx",
-            "http://202.192.240.54/xspj/zysx.htm",
-            "http://202.192.240.54/xspj/loadnevl.aspx",
-            "http://202.192.240.54/xspj/evaluate.aspx",
-            "http://202.192.240.54/ds/loadnevl.asp",
-            "http://202.192.240.54/ds/evaluate.asp",
-            "http://202.192.240.54/ds/exit.asp",
-            "http://202.192.240.54/xspj/"
-        ],
-        "js": ["content.js"],
-        "all_frames": true
-    }]
+    "content_scripts": [
+        {
+            "matches": [
+                "http://202.192.240.54/xspj/default1.aspx",
+                "http://202.192.240.54/xspj/zysx.htm",
+                "http://202.192.240.54/xspj/loadnevl.aspx",
+                "http://202.192.240.54/xspj/evaluate.aspx",
+                "http://202.192.240.54/ds/loadnevl.asp",
+                "http://202.192.240.54/ds/evaluate.asp",
+                "http://202.192.240.54/ds/exit.asp",
+                "http://202.192.240.54/xspj/"
+            ],
+            "js": ["content.js"],
+            "all_frames": true
+        }
+    ]
 }

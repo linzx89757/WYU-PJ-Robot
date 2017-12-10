@@ -1,5 +1,5 @@
 ;(function() {
-    'use stirct';
+    'use strict';
 
     var URLpath = {
             default: '/xspj/default1.aspx', // 登陆页
