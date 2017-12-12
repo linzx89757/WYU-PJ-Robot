@@ -88,11 +88,10 @@ a.turnBtn:hover {
 }
 ul {
     font-size: 14px;
-    margin-top: 5px;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 ul li {
-    margin-top: 6px;
+    margin-top: 4px;
 }
 .thirdPage ul {
     margin-top: 30px;
