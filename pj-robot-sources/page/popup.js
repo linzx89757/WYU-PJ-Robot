@@ -56,7 +56,7 @@
         });
     });
 
-    // 单独评分
+    // 处理单独评分
     addClickEvent('teacherNameBtn', function() {
         var teacherName = teacherNameInput.value;
         if(teacherName) {

@@ -15,7 +15,7 @@
         teacherName = localStorage.getItem('teacherName'); // 缓存单独评分的老师名字
 
     /**
-     * 授课老师打分程序
+     * 授课老师自动打分并提交，如果是一键评分则不自动提交
      * @param {number} score 一键评分的分数0~10
      */
     function shoukeTeacherMark(score) {
@@ -31,7 +31,7 @@
     }
 
     /**
-     * 班导师打分程序
+     * 班导师自动打分并提交，如果是一键评分则不自动提交
      * @param {number} score 一键评分的分数0~10
      */
     function bandaoTeacherMark(score) {
@@ -48,12 +48,13 @@
 
     /**
      * 匹配出需要单独评分的老师
+     * @param {json string or null} teacherName 需要单独匹配的老师名字
      * @param {string} teacherID 检索到的老师名字
      * @param {function} teacherMark 打分程序
      */
-    function teacherMatch(teacherID, teacherMark) {
+    function teacherMatch(teacherName, teacherID, teacherMark) {
         if(!teacherName) {
-            // 不需要单独评分，开始执行打分程序
+            // 不需要单独评分，开始自动打分并提交
             teacherMark();
         }else{
             // 需要单独评分，开始匹配并执行打分程序
@@ -64,17 +65,18 @@
                     console.log(teacherID + '，匹配正确，请开始评分，评完后请手动提交！');
                     break;
                 }else if(i === arrLength - 1) {
-                    console.log('匹配失败，开始打分');
+                    console.log('匹配失败，开始自动打分');
                     teacherMark();
                 }
             }
         }
     }
 
-    // 监听连接，单独评分
+    // 监听来自background的连接，建立通信通道
     chrome.runtime.onConnect.addListener(function(port) {
-        // 监听通信通道，msg为消息对象
+        // 监听通信通道消息传输，msg为消息对象，msg.value为消息内容
         port.onMessage.addListener(function(msg) {
+            // 处理单独评分
             if(msg.value === 'shouke') {
                 // 授课老师提交
                 document.getElementById('frmSel').submit();
@@ -110,7 +112,7 @@
     }else if(pathname === URLpath.shouke) {
         // 检索老师名字
         var teacherID = document.getElementById('lblRKJS').textContent;
-        teacherMatch(teacherID, shoukeTeacherMark);
+        teacherMatch(teacherName, teacherID, shoukeTeacherMark);
     }else if(pathname === URLpath.bandaoPage) {
         console.log('自动点击·下一页·按钮');
         location.href = URLpath.bandao;
@@ -121,7 +123,7 @@
             td = tr.getElementsByTagName('td')[1],
             b = td.getElementsByTagName('b')[0],
             teacherID = b.innerText;
-        teacherMatch(teacherID, bandaoTeacherMark);
+        teacherMatch(teacherName, teacherID, bandaoTeacherMark);
     }else if(pathname !== URLpath.default) {
         console.log('评教完成，跳转回登录页，同时清了缓存');
         contentToBg.postMessage({value: 'ok'}); // 利用通道传送评教成功的消息
